@@ -151,7 +151,7 @@ export default function TransformationResults() {
             Know someone who needs this?
           </p>
           <a
-            href={`https://wa.me/?text=${encodeURIComponent('Yeh dekh, free mein personalized diet plan milta hai — sirf local ingredients use karta hai, no fancy stuff. Mujhe results dikh rahe hain 💪\nhttps://nutriai.app')}`}
+            href={`https://wa.me/?text=${encodeURIComponent('Yeh dekh, free mein personalized diet plan milta hai — sirf local ingredients use karta hai, no fancy stuff. Mujhe results dikh rahe hain 💪\nhttps://nutri-kk.vercel.app/')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#20bd5a] transition-all"

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, Sparkles, Share2 } from 'lucide-react';
 
 const WHATSAPP_TEXT = encodeURIComponent(
-  'I just got a free personalized diet plan from NutriAI — only local ingredients, no fancy stuff. It actually works for Indian food! Try it 👇\nhttps://nutriai.app'
+  'I just got a free personalized diet plan from NutriAI — only local ingredients, no fancy stuff. It actually works for Indian food! Try it 👇\nhttps://nutri-kk.vercel.app/'
 );
 
 export default function FinalCTA() {
