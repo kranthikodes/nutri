@@ -30,14 +30,14 @@ export default function Hero() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-stone-900 leading-tight mb-6">
-              Your Personal{' '}
-              <span className="text-sage-500">AI Nutritionist</span>
+              A Diet Plan That{' '}
+              <span className="text-sage-500">Actually Works</span>
             </h1>
 
             <p className="text-lg text-stone-600 mb-8 max-w-lg leading-relaxed">
-              Get a nutrition plan that actually works for{' '}
-              <em>your</em> body, conditions, culture, budget, and goals. Not
-              generic advice &mdash; a plan built on 50+ data points about you.
+              Made for <em>your</em> body, your condition, your city, and
+              your budget. Only ingredients from your local market. Recipes so
+              simple your family will eat the same food.
             </p>
 
             {/* CTA */}
@@ -96,13 +96,13 @@ export default function Hero() {
 
                 <div className="space-y-4">
                   <div className="bg-sage-50 rounded-2xl rounded-tl-sm p-4 text-sm text-stone-700 max-w-xs">
-                    Based on your PCOS, vegetarian diet, and goal of losing 8kg, here&apos;s your personalized plan...
+                    Based on your PCOS and that you live in Indore, here&apos;s a plan using only ingredients from your local sabzi mandi...
                   </div>
                   <div className="bg-stone-100 rounded-2xl rounded-tr-sm p-4 text-sm text-stone-700 ml-auto max-w-[200px]">
-                    Can you include South Indian breakfast options?
+                    I can&apos;t cook complicated recipes 😅
                   </div>
                   <div className="bg-sage-50 rounded-2xl rounded-tl-sm p-4 text-sm text-stone-700 max-w-xs">
-                    Absolutely! I&apos;ve updated your plan with idli, dosa, and upma variations...
+                    No problem! Every recipe here is under 20 min with 5 ingredients or less. Simple dal, sabzi, roti...
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { MessageSquare, Brain, FileText } from 'lucide-react';
+import { MessageSquare, Brain, FileText, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const steps = [
@@ -8,22 +8,29 @@ const steps = [
     icon: MessageSquare,
     title: 'Tell Us About You',
     description:
-      'Answer guided questions about your health, preferences, lifestyle, and goals. Takes just 5-7 minutes.',
+      'Your city, your conditions, your budget, your food preferences. Takes just 5 minutes.',
     number: '01',
   },
   {
     icon: Brain,
-    title: 'AI Analyzes Your Profile',
+    title: 'AI Builds Your Plan',
     description:
-      'Our AI processes 50+ data points including medical history, regional food access, budget, and cultural preferences.',
+      'Only ingredients from your local market. Recipes simple enough for anyone. Zero fancy imported stuff.',
     number: '02',
   },
   {
     icon: FileText,
-    title: 'Get Your Plan',
+    title: 'Get Your Grocery List',
     description:
-      'Receive a detailed nutrition plan with meal ideas, macros, grocery lists, and lifestyle recommendations.',
+      'A complete 7-day plan with meals, a grocery list you can take to your sabzi mandi, and exact quantities.',
     number: '03',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Track & See Results',
+    description:
+      'Simple weekly tracking — weight, energy, how you feel. See your numbers change week by week.',
+    number: '04',
   },
 ];
 
@@ -40,9 +47,9 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 relative">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
           {/* Connecting line */}
-          <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-0.5 bg-sage-100" />
+          <div className="hidden lg:block absolute top-16 left-[15%] right-[15%] h-0.5 bg-sage-100" />
 
           {steps.map((step, i) => (
             <motion.div

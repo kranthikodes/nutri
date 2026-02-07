@@ -20,6 +20,7 @@ export interface UserProfile {
   };
   geographic: {
     location: string;
+    city: string;
     monthlyBudget: string;
     eatingOutFrequency: string;
   };

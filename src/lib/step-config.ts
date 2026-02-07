@@ -281,6 +281,15 @@ export const STEPS: StepConfig[] = [
         allowCustom: true,
       },
       {
+        id: 'city',
+        question: 'Which city or town?',
+        whyWeAsk: 'So we only suggest ingredients available near you',
+        inputType: 'text',
+        placeholder: 'e.g. Indore, Lucknow, Jaipur...',
+        required: true,
+        fieldPath: 'geographic.city',
+      },
+      {
         id: 'budget',
         question: 'Food budget vibe?',
         whyWeAsk: '',

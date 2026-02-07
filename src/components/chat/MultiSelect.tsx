@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import type { QuestionOption } from '@/types';
 import { cn } from '@/lib/utils';
+import { playTap, playClick } from '@/lib/sounds';
 
 interface MultiSelectProps {
   options: QuestionOption[];
@@ -18,6 +19,7 @@ export default function MultiSelect({ options, onSubmit, allowCustom }: MultiSel
   const [customInput, setCustomInput] = useState('');
 
   const toggle = (label: string) => {
+    playTap();
     const next = new Set(selected);
     // If "None" is selected, deselect everything else
     if (label === 'None' || label === 'None / Not sure') {
@@ -54,6 +56,7 @@ export default function MultiSelect({ options, onSubmit, allowCustom }: MultiSel
 
   const handleSubmit = () => {
     if (selected.size > 0) {
+      playClick();
       onSubmit(Array.from(selected));
     }
   };

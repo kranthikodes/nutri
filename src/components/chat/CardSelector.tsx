@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import type { QuestionOption } from '@/types';
 import { cn } from '@/lib/utils';
+import { playTap } from '@/lib/sounds';
 
 interface CardSelectorProps {
   options: QuestionOption[];
@@ -19,7 +20,7 @@ export default function CardSelector({ options, onSelect }: CardSelectorProps) {
       {options.map((opt) => (
         <button
           key={opt.id}
-          onClick={() => onSelect(opt.label)}
+          onClick={() => { playTap(); onSelect(opt.label); }}
           className={cn(
             'flex flex-col items-center gap-2 p-4 rounded-xl border transition-all text-center',
             'border-stone-200 bg-white hover:border-sage-400 hover:bg-sage-50',

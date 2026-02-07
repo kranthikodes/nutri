@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { STEPS } from '@/lib/step-config';
 import type { StepConfig } from '@/types';
+import { playClick } from '@/lib/sounds';
 
 interface StepIntroProps {
   step: StepConfig;
@@ -42,7 +43,7 @@ export default function StepIntro({ step, stepNumber, onStart }: StepIntroProps)
         </div>
 
         <button
-          onClick={onStart}
+          onClick={() => { playClick(); onStart(); }}
           className="flex items-center gap-2 bg-sage-500 hover:bg-sage-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all w-full justify-center hover:shadow-lg"
         >
           Let&apos;s Go!

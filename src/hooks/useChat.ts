@@ -3,13 +3,14 @@
 import { useState, useCallback } from 'react';
 import { STEPS, STEP_XP, STEP_CELEBRATIONS } from '@/lib/step-config';
 import type { Message, UserProfile, FlowState } from '@/types';
+import { playStepComplete, playCelebration } from '@/lib/sounds';
 
 function createEmptyProfile(): UserProfile {
   return {
     medical: { conditions: [], allergies: [], medications: '' },
     body: { age: '', sex: '', heightCm: '', weightKg: '', activityLevel: '' },
     dietary: { dietType: '', foodsLiked: '', foodsDisliked: '', cookingSkill: '', mealPrepTime: '' },
-    geographic: { location: '', monthlyBudget: '', eatingOutFrequency: '' },
+    geographic: { location: '', city: '', monthlyBudget: '', eatingOutFrequency: '' },
     goals: { primaryGoal: '', timeline: '' },
     lifestyle: { dailyRoutine: '', stressLevel: '', habits: [] },
   };
@@ -82,9 +83,11 @@ export function useChat() {
         if (nextStep < STEPS.length) {
           setFlow({ currentStep: nextStep, currentSubStep: 0, isComplete: false });
           setShowIntro(true);
+          playStepComplete();
         } else {
           // All done — generate plan
           setFlow((prev) => ({ ...prev, isComplete: true }));
+          playCelebration();
           setTimeout(() => generatePlan(profileCopy), 500);
         }
       }

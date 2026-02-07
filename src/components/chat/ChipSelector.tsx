@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
 import type { QuestionOption } from '@/types';
 import { cn } from '@/lib/utils';
+import { playTap } from '@/lib/sounds';
 
 interface ChipSelectorProps {
   options: QuestionOption[];
@@ -29,7 +30,7 @@ export default function ChipSelector({ options, onSelect, allowCustom }: ChipSel
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.03 }}
-            onClick={() => onSelect(opt.label)}
+            onClick={() => { playTap(); onSelect(opt.label); }}
             className={cn(
               'px-4 py-2.5 rounded-full text-sm font-medium border transition-all',
               'border-stone-200 text-stone-700 bg-white',

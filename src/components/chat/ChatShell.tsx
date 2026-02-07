@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Leaf, RotateCcw, FileText, Zap } from 'lucide-react';
+import { ArrowLeft, Leaf, RotateCcw, FileText, Zap, Send, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useChat } from '@/hooks/useChat';
 import { TOTAL_XP, LEVEL_NAMES } from '@/lib/step-config';
+import { playTap } from '@/lib/sounds';
 import ProgressIndicator from './ProgressIndicator';
 import MessageList from './MessageList';
 import StepIntro from './StepIntro';
@@ -23,9 +24,20 @@ export default function ChatShell() {
   } = useChat();
 
   const [showPlan, setShowPlan] = useState(false);
+  const [textInput, setTextInput] = useState('');
 
   const levelIndex = Math.min(Math.floor((xp / TOTAL_XP) * LEVEL_NAMES.length), LEVEL_NAMES.length - 1);
   const levelName = LEVEL_NAMES[levelIndex];
+
+  const handleTextSubmit = () => {
+    if (textInput.trim()) {
+      playTap();
+      submitAnswer(textInput.trim());
+      setTextInput('');
+    }
+  };
+
+  const totalSubSteps = currentStepConfig?.questions.length ?? 0;
 
   const renderInput = () => {
     if (isStreaming) return null;
@@ -57,39 +69,76 @@ export default function ChatShell() {
     if (!currentQuestion) return null;
 
     return (
-      <div className="px-4 py-3 border-t border-stone-100 bg-white">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentQuestion.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            {currentQuestion.inputType === 'chips' && currentQuestion.options && (
-              <ChipSelector
-                options={currentQuestion.options}
-                onSelect={(val) => submitAnswer(val)}
-                allowCustom={currentQuestion.allowCustom}
-              />
-            )}
+      <div className="border-t border-stone-100 bg-white">
+        {/* Question prompt header */}
+        <div className="px-4 pt-3 pb-2">
+          <div className="flex items-center gap-2 mb-2">
+            <MessageCircle className="w-3.5 h-3.5 text-sage-500" />
+            <span className="text-xs font-semibold text-sage-600 uppercase tracking-wide">
+              {currentQuestion.inputType === 'text' ? 'Type your answer' : currentQuestion.inputType === 'multi-select' ? 'Select all that apply' : 'Tap your answer'}
+            </span>
+          </div>
+        </div>
 
-            {currentQuestion.inputType === 'cards' && currentQuestion.options && (
-              <CardSelector
-                options={currentQuestion.options}
-                onSelect={(val) => submitAnswer(val)}
-              />
-            )}
+        {/* Input options */}
+        <div className="px-4 pb-3">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentQuestion.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              {currentQuestion.inputType === 'chips' && currentQuestion.options && (
+                <ChipSelector
+                  options={currentQuestion.options}
+                  onSelect={(val) => submitAnswer(val)}
+                  allowCustom={currentQuestion.allowCustom}
+                />
+              )}
 
-            {currentQuestion.inputType === 'multi-select' && currentQuestion.options && (
-              <MultiSelect
-                options={currentQuestion.options}
-                onSubmit={(vals) => submitAnswer(vals)}
-                allowCustom={currentQuestion.allowCustom}
-              />
-            )}
-          </motion.div>
-        </AnimatePresence>
+              {currentQuestion.inputType === 'cards' && currentQuestion.options && (
+                <CardSelector
+                  options={currentQuestion.options}
+                  onSelect={(val) => submitAnswer(val)}
+                />
+              )}
+
+              {currentQuestion.inputType === 'multi-select' && currentQuestion.options && (
+                <MultiSelect
+                  options={currentQuestion.options}
+                  onSubmit={(vals) => submitAnswer(vals)}
+                  allowCustom={currentQuestion.allowCustom}
+                />
+              )}
+
+              {currentQuestion.inputType === 'text' && (
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={textInput}
+                    onChange={(e) => setTextInput(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleTextSubmit()}
+                    placeholder={currentQuestion.placeholder || 'Type here...'}
+                    className="flex-1 px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:border-sage-400 focus:ring-2 focus:ring-sage-100 transition-all"
+                    autoFocus
+                  />
+                  <button
+                    onClick={handleTextSubmit}
+                    disabled={!textInput.trim()}
+                    className="px-4 py-3 bg-sage-500 hover:bg-sage-600 disabled:bg-stone-200 text-white disabled:text-stone-400 rounded-xl transition-all"
+                  >
+                    <Send className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Safe-area spacer for mobile */}
+        <div className="h-[env(safe-area-inset-bottom)]" />
       </div>
     );
   };
@@ -134,6 +183,9 @@ export default function ChatShell() {
         <ProgressIndicator
           currentStep={flow.currentStep}
           completedSteps={completedSteps}
+          currentSubStep={flow.currentSubStep}
+          totalSubSteps={totalSubSteps}
+          showIntro={showIntro}
         />
       )}
 
